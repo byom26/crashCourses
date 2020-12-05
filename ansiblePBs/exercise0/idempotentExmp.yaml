@@ -1,0 +1,15 @@
+-
+  name: Example to show the idempotent behaviour of Ansible
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Writing a new sentence to a file1
+      lineinfile:
+        path: /tmp/file1.txt
+        line: This is a brand new line!
+
+# Here even though we will run the playbook multiple times, Ansible will make sure
+# that the sentense is written to the file only once
+# Where as the same thing if we are trying to do it through a script,
+# and we run the script multiple times, it will simply keep on appending the same line to the file again & again.

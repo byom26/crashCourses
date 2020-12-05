@@ -1,0 +1,46 @@
+-
+  name: Usage of conditional statements & Loops
+  hosts: all
+  gather_facts: no
+
+  vars:
+    packages:
+      - name: nginx
+        required: True
+      - name: mysql
+        required: True
+      - name: apache
+        required: False
+
+  tasks:
+    # Register variable + conditional
+    - name: Check status of a service & email if a service is down
+      command: service httpd status
+      register: result
+
+    - mail:
+        to: admin@email.com
+        subject: Service Alert
+        body: Httpd service is down
+        when: result.stdout.find('down') != -1
+
+    # Looping + Conditional
+    - name: Install "{{ item.name }}" on Debian
+      apt:
+        name: "{{ item.name }}"
+        state: present
+      when: item.required == True
+      loop: "{{ packages }}"
+
+    # Simple conditional usage
+    - name: Install NGINX on Debian
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian" and ansible_distribution_version == "16.04"
+
+    - name: Install NGINX on RedHat
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "RedHat" or ansible_os_family == "SUSE"

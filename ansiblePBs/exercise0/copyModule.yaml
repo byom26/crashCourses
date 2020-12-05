@@ -1,0 +1,8 @@
+-
+  name: Copy a file from controller to target machines
+  hosts: all
+  tasks:
+    - name: Copy a file
+      copy:
+        src: /tmp/file1.txt
+        dest: /tmp/file1.txt

@@ -1,0 +1,18 @@
+-
+  name: Different ways of declaring parameters - An example of free_form type where as the copy module is completely based on parameters
+  hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: Creating a folder Type-1
+      command: mkdir /tmp/testFolder1
+      args:
+        creates: /tmp/testFolder1
+
+    - name: Creating a folder Type-2
+      command: mkdir /tmp/testFolder2 creates=/tmp/testFolder2
+
+    - name: Creating a folder Type-3
+      command:
+        cmd: mkdir /tmp/testFolder3
+        creates: /tmp/testFolder3
