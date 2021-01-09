@@ -90,8 +90,8 @@ arr.forEach(function(element){
 })
 */
 
-let j=0; // Scope is limited to a block only where as var scope is universal
 // const a= 0;
+let j=0; // Scope is limited to a block only where as var scope is universal
 let arr = [1,2,3,4,5,6,7,8];
 while(j<arr.length){
     console.log(arr[j]);
